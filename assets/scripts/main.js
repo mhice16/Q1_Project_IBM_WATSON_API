@@ -6,9 +6,38 @@ $(document).ready(function(){
   $("#btn1").click(function(){
     event.preventDefault();
     var sendText = $("#exemplar").val();
+    $(".chart").html('');
     analyzeIt(sendText);  //Function that will hit Watson API.
     //$("#exemplar").val("");  //To clear the textarea.
   })
+
+  //  The graphIt function utilizes the D3 framework to add a bar graph
+  //  to the page using DOM manipulation and pulling bar graph values from
+  //  local storage values created after the API call.
+  function graphIt() {
+    var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
+    var data = [];
+    for (var i = 0; i < emotions.length; i++) {
+      data[i] = Number.parseFloat(localStorage.getItem(emotions[i]));
+    }
+
+    var x = d3.scale.linear()
+        .domain([0, d3.max(data)])
+        .range([0, 40]);
+
+    d3.select(".chart")
+      .selectAll("div")
+        .data(data)
+      .enter().append("div")
+        .style("width", function(d) { return x(d) + "em"; })
+        .text(function(d) { return d; });
+    for (var i = 0; i < 5; i++) {
+      var $bar = $(".chart")[0].childNodes[i];
+      var barText = $bar.innerHTML;
+      barText = emotions[i] + ": " + barText; //Add name of emotion to bar text.
+      $bar.innerHTML = barText;
+    }
+  }
 
   //  The AnalzyeIt function receives the text from the text entry
   //  and analzes it using the IBM Watson API via an ajax call.
@@ -29,6 +58,7 @@ $(document).ready(function(){
           console.log(emotion, emoObj[emotion]);
           localStorage.setItem(emotion, emoObj[emotion]);
         }
+        graphIt();
       }
     })
   }
