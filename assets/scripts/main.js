@@ -21,7 +21,7 @@ $(document).ready(function(){
       data[i] = Number.parseFloat(localStorage.getItem(emotions[i]));
     }
 
-    var x = d3.scale.linear()
+    var x = d3.scaleLinear()
         .domain([0, d3.max(data)])
         .range([0, 40]);
 
@@ -45,7 +45,7 @@ $(document).ready(function(){
   function analyzeIt(text) {
     localStorage.clear();
     let unAnalyzedText = text;
-    var urlBase = "http://gateway-a.watsonplatform.net/calls/text/TextGetEmotion?";
+    var urlBase = "https://gateway-a.watsonplatform.net/calls/text/TextGetEmotion?";
     var apiKey = "e98c199b53f78a115c910b132833e89d9cd9ecd5";
     urlBase = urlBase+"apikey="+apiKey+"&text="+encodeURIComponent(unAnalyzedText)+"&outputMode=json";
     //console.log(urlBase);
