@@ -16,6 +16,7 @@ $(document).ready(function(){
   //  local storage values created after the API call.
   function graphIt() {
     var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
+    var colors = ["red", "green", "purple", "yellow", "blue"];
     var data = [];
     for (var i = 0; i < emotions.length; i++) {
       data[i] = Number.parseFloat(localStorage.getItem(emotions[i]));
@@ -24,12 +25,13 @@ $(document).ready(function(){
     var x = d3.scaleLinear()
         .domain([0, d3.max(data)])
         .range([0, 40]);
-
+    var colorIndex = 0;
     d3.select(".chart")
       .selectAll("div")
         .data(data)
       .enter().append("div")
         .style("width", function(d) { return x(d) + "em"; })
+        .style("background-color", function(d) { return colors[colorIndex++]})
         .text(function(d) { return d; });
     for (var i = 0; i < 5; i++) {
       var $bar = $(".chart")[0].childNodes[i];
