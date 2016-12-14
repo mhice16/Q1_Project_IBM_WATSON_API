@@ -48,13 +48,16 @@ $(document).ready(function(){
     localStorage.clear();
     let unAnalyzedText = text;
     var urlBase = "https://gateway-a.watsonplatform.net/calls/text/TextGetEmotion?";
-    var apiKey = "e98c199b53f78a115c910b132833e89d9cd9ecd5";
+    var apiKey = "a504c631c72bbdd8359bbe888ebc2687c48a16f5";
+    //a504c631c72bbdd8359bbe888ebc2687c48a16f5
+    //e98c199b53f78a115c910b132833e89d9cd9ecd5
     urlBase = urlBase+"apikey="+apiKey+"&text="+encodeURIComponent(unAnalyzedText)+"&outputMode=json";
     //console.log(urlBase);
     $.ajax({
       url: urlBase,
       type: 'POST',
       success: function(data){
+        console.log(data);
         var emoObj = data.docEmotions;
         for (emotion in emoObj) {
           console.log(emotion, emoObj[emotion]);
