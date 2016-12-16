@@ -143,6 +143,16 @@ $(document).ready(function(){
       $div1.append($div2);
       $("#articlesList").append($div1);
     }
+    $('.modal').modal();  //Initialize Materialize modal function.
+
+    // Set a button listener on the newly created modals & buttons
+    // now on the page.  Listen for the modal button click.
+    $(".modal-trigger").click(function(event){
+      event.preventDefault();
+      var sendURL = $(event.target).attr('data-url');
+      var sendChart = $(event.target).attr('data-chart');
+      analyzeURL(sendURL, sendChart); // Function that will hit Watson API.
+    })
   }
 
   // This function displays a custom error message if the getNews api call
