@@ -86,5 +86,15 @@ $(document).ready(function(){
   function addArticles(obj) {
   }
 
+  // This function displays a custom error message if the getNews api call
+  // fails.
   function displayError() {
+    $("#articlesList").html('');
+    let errorMsg1 = "We're sorry, but the site you've requested is currently unavailable."
+    let errorMsg2 = "Please try again later or select another news source."
+    $p1=$('<h5>').text(errorMsg1).addClass("center");
+    $p2=$('<h5>').text(errorMsg2).addClass("center");
+    $("#articlesList").append($p1,$p2);
   }
+
+});
