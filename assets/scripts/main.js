@@ -40,33 +40,31 @@ $(document).ready(function(){
     }
   }
 
-  //  The AnalzyeIt function receives the text from the text entry
-  //  and analzes it using the IBM Watson API via an ajax call.
-  //  The ajax call returns a JSON Object containing analysis data.
-  function analyzeIt(text) {
+
+  //  The analyzeURL function receives the URL and the chart id from the modal
+  //  listener.  It submits the url to the IBM Watson API via an ajax call.
+  //  The ajax call returns a JSON Object containing the analysis data.
+  function analyzeURL(url, chart) {
     localStorage.clear();
-    let unAnalyzedText = text;
-    var urlBase = "https://gateway-a.watsonplatform.net/calls/text/TextGetEmotion?";
-    var apiKey = "a504c631c72bbdd8359bbe888ebc2687c48a16f5";
-    //a504c631c72bbdd8359bbe888ebc2687c48a16f5
-    //e98c199b53f78a115c910b132833e89d9cd9ecd5
-    urlBase = urlBase+"apikey="+apiKey+"&text="+encodeURIComponent(unAnalyzedText)+"&outputMode=json";
-    //console.log(urlBase);
+    //let unAnalyzedText = text;
+    //"https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=$API_KEY"
+    var urlBase = "https://gateway-a.watsonplatform.net/calls/url/URLGetEmotion?";
+    var apiKey = "e98c199b53f78a115c910b132833e89d9cd9ecd5";
+    $url = url;
+    //urlBase = urlBase+"apikey="+apiKey+"&text="+encodeURIComponent(unAnalyzedText)+"&outputMode=json";
+    urlBase = urlBase+"apikey="+apiKey+"&url="+$url+"&outputMode=json";
     $.ajax({
       url: urlBase,
       type: 'POST',
       success: function(data){
-        console.log(data);
         var emoObj = data.docEmotions;
         for (emotion in emoObj) {
-          console.log(emotion, emoObj[emotion]);
           localStorage.setItem(emotion, emoObj[emotion]);
         }
-        graphIt();
+        graphIt(chart);
       }
     })
   }
-});
 
   //  The getNews function is triggered when a news source is selected.
   //  It hits the newsapi and receive an object of top news articles (max 10);
