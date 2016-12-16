@@ -14,8 +14,9 @@ $(document).ready(function(){
   //  to the page using DOM manipulation and pulling bar graph values from
   //  local storage values created after the API call.
   function graphIt() {
+    var chartClass ="."+chartNum;
     var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
-    var colors = ["red", "green", "purple", "yellow", "blue"];
+    var colors = ["rgba(255, 0, 0, .8)", "green", "purple", "yellow", "blue"];
     var data = [];
     for (var i = 0; i < emotions.length; i++) {
       data[i] = Number.parseFloat(localStorage.getItem(emotions[i]));
@@ -25,7 +26,7 @@ $(document).ready(function(){
         .domain([0, d3.max(data)])
         .range([0, 40]);
     var colorIndex = 0;
-    d3.select(".chart")
+    d3.select(chartClass)
       .selectAll("div")
         .data(data)
       .enter().append("div")
@@ -33,7 +34,7 @@ $(document).ready(function(){
         .style("background-color", function(d) { return colors[colorIndex++]})
         .text(function(d) { return d; });
     for (var i = 0; i < 5; i++) {
-      var $bar = $(".chart")[0].childNodes[i];
+      var $bar = $(chartClass)[0].childNodes[i];
       var barText = $bar.innerHTML;
       barText = emotions[i] + ": " + barText; //Add name of emotion to bar text.
       $bar.innerHTML = barText;
