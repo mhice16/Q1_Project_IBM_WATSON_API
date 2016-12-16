@@ -83,7 +83,66 @@ $(document).ready(function(){
     });
   }
 
+  // The addArticles function receives the new articles object and dynamically
+  // creates and adds the news stories to the page including modals that
+  // appear when clicked and show the Watson API emotion analysis results on
+  // a bar graph.
   function addArticles(obj) {
+    $("#articlesList").html('');
+    var rawArticles = obj;
+
+    // Start of dynamic creation and addition of news stories with modals on page;
+    for (var i = 0; i < rawArticles.articles.length; i++) {
+      var element = rawArticles.articles[i];
+      //  Ternary operators to eliminat null values
+      var $author = element.author ? element.author : "Not available.";
+      var $title = element.title ? element.title : "Not available.";
+      var $desc = element.description ? element.description.substring(0, 300) : "Not avialble";
+      var $url = element.url ? element.url : "#";
+      var $urlImg = element.urlToImage ? element.urlToImage : "assets/images/thumbna.png";
+      var $pub=element.publishedAt;
+
+      var $div1 = $("<div>").addClass("col s10 offset-s1");
+      var $div2 = $("<div>").addClass("card small horizontal");
+      var $div3 = $("<div>").addClass("card-image");
+      var $div4 = $("<div>").addClass("card-stacked");
+      var $div5 = $("<div>").addClass("card-content");
+      var $div6 = $("<div>").addClass("card-action");
+      var $img = $("<img>").attr("src", $urlImg);
+      $img.css('width', '22em');
+      $img.css('overflow','hidden');
+      var $h51 = $("<h5>").text($title);
+      var $h61 = $("<h6>").text("Author: "+$author);
+      var $h62 = $("<h6>").text("Published: "+$pub);
+      var $br = $("<br>");
+      var $p=$("<p>").text($desc);
+      var $a1 = $('<a>').attr("href", $url);
+      var $a1 = $a1.attr("target", "_blank");
+      $a1.append("Link to Story");
+      $div5.append($h51,$h61,$h62,$p);
+      $div5.addClass("card-content");
+      $div6.append($a1);
+
+      // Dynamic Modal Creation and assembly
+      var $pM = $("<p>").addClass("chart"+(i+10));
+      var $aM1 = $("<a>").attr("href", "#modal"+(i+10)).addClass("modal-trigger waves-effect waves-light btn").append("Emotion Analysis").attr("id", "b"+(i+10)).attr("data-url", $url).attr("data-chart", "chart"+(i+10));
+      var $aM2 = $("<a>").attr("href", "#!").addClass("modal-action modal-close waves-effect waves-green btn-flat").append("Close");
+      var $divM1 = $("<div>").addClass("modal modal-fixed-footer").attr("id", "modal"+(i+10));
+      var $divM2 = $("<div>").addClass("modal-content");
+      var $divM3 = $("<div>").addClass("modal-footer");
+      var $h4M = $("<h4>").text("Emotional Analysis");
+      $divM3.append($aM2);
+      $divM2.append($h4M, $pM);
+      $divM1.append($divM2, $divM3);
+
+      // Final assembly and append of news items to the page.
+      $div6.append($aM1,$divM1);
+      $div4.append($div5,$div6);
+      $div3.append($img);
+      $div2.append($div3,$div4);
+      $div1.append($div2);
+      $("#articlesList").append($div1);
+    }
   }
 
   // This function displays a custom error message if the getNews api call
