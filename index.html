@@ -9,41 +9,97 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="assets/scripts/main.js" charset="utf-8"></script>
-    <title>Q1_Project_IBM_WATSON_API</title>
+    <title>The NewsAPI Plus IBM Watson Analysis</title>
   </head>
   <body>
     <header>
       <nav class="teal">
           <div class="container nav-wrapper">
             <a href="#!" class="brand-logo center">Powered by IBM Watson &reg;</a>
-            <ul class="left hide-on-med-and-down">
-              <li><a href="sass.html">Sass</a></li>
-              <li><a href="badges.html">Components</a></li>
-              <li class="active"><a href="collapsible.html">JavaScript</a></li>
-            </ul>
+
           </div>
         </nav>
     </header>
 
     <main class="container">
-      <section>
-        <p></p>
-        <div class="row">
-          <form class="col s6">
-            <div class="row">
-              <div class="input-field col s6">
-                <textarea id="exemplar" class="materialize-textarea"></textarea>
-                <label for="exemplar">Type or paste your text here.</label>
-                <button id="btn1" class="btn waves-effect waves-light" type="submit" name="action">Submit
-                  <i class="material-icons right">launch</i>
-                </button>
-              </div>
-            </div>
-          </form>
-          <div class="col s6 chart white">
-          </div>
-        </div>
+
+      <section class="row">
       </section>
+      <section class="container">
+          <form>
+            <section>
+              <div class="row">
+                <div id="select1" class="input-field col s4 offset-s4">
+                  <select>
+                    <option value="" disabled selected>Choose the news source to browse:</option>
+                    <option value="abc-news-au">ABC News (AU) general</option>
+                    <option value="ars-technica">Ars Technica technology</option>
+                    <option value="associated-press">Associated Press general</option>
+                    <option value="bbc-news">BBC News general</option>
+                    <option value="bbc-sport">BBC Sport sport</option>
+                    <option value="bloomberg">Bloomberg business</option>
+                    <option value="business-insider">Business Insider business</option>
+                    <option value="business-insider-uk">Business Insider (UK) business</option>
+                    <option value="buzzfeed">Buzzfeed entertainment</option>
+                    <option value="cnbc">CNBC business</option>
+                    <option value="cnn">CNN general</option>
+                    <option value="daily-mail">Daily Mail entertainment</option>
+                    <option value="engadget">Engadget technology</option>
+                    <option value="entertainment-weekly">Entertainment Weekly entertainment</option>
+                    <option value="espn">ESPN sport</option>
+                    <option value="espn-cric-info">ESPN Cric Info sport</option>
+                    <option value="financial-times">Financial Times business</option>
+                    <option value="football-italia">Football Italia sport</option>
+                    <option value="fortune">Fortune business</option>
+                    <option value="four-four-two">FourFourTwo sport</option>
+                    <option value="fox-sports">Fox Sports sport</option>
+                    <option value="google-news">Google News general</option>
+                    <option value="hacker-news">Hacker News technology</option>
+                    <option value="ign">IGN gaming</option>
+                    <option value="independent">Independent general</option>
+                    <option value="mashable">Mashable entertainment</option>
+                    <option value="metro">Metro general</option>
+                    <option value="mirror">Mirror general</option>
+                    <option value="mtv-news">MTV News music</option>
+                    <option value="mtv-news-uk">MTV News (UK) music</option>
+                    <option value="national-geographic">National Geographic science-and-nature</option>
+                    <option value="new-scientist">New Scientist science-and-nature</option>
+                    <option value="newsweek">Newsweek general</option>
+                    <option value="new-york-magazine">New York Magazine general</option>
+                    <option value="nfl-news">NFL News sport</option>
+                    <option value="polygon">Polygon gaming</option>
+                    <option value="recode">Recode technology</option>
+                    <option value="reddit-r-all">Reddit /r/all general</option>
+                    <option value="reuters">Reuters general</option>
+                    <option value="sky-news">Sky News general</option>
+                    <option value="sky-sports-news">Sky Sports News sport</option>
+                    <option value="talksport">TalkSport sport</option>
+                    <option value="techcrunch">TechCrunch technology</option>
+                    <option value="techradar">TechRadar technology</option>
+                    <option value="the-economist">The Economist business</option>
+                    <option value="the-guardian-au">The Guardian (AU) general</option>
+                    <option value="the-guardian-uk">The Guardian (UK) general</option>
+                    <option value="the-hindu">The Hindu general</option>
+                    <option value="the-huffington-post">The Huffington Post general</option>
+                    <option value="the-lad-bible">The Lad Bible entertainment</option>
+                    <option value="the-new-york-times">The New York Times general</option>
+                    <option value="the-next-web">The Next Web technology</option>
+                    <option value="the-sport-bible">The Sport Bible sport</option>
+                    <option value="the-telegraph">The Telegraph general</option>
+                    <option value="the-times-of-india">The Times of India general</option>
+                    <option value="the-verge">The Verge technology</option>
+                    <option value="the-wall-street-journal">The Wall Street Journal business</option>
+                    <option value="the-washington-post">The Washington Post general</option>
+                    <option value="time">Time general</option>
+                    <option value="usa-today">USA Today general</option>
+                  </select>
+                  <label></label>
+                </div>
+              </div>
+            </section>
+          </form>
+      </section>
+
 
       <section>
         <h5>Learn more about how this works:</h5>
