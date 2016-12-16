@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $('select').material_select();
+   $(".button-collapse").sideNav();
 
   // Listen for the user to select a news source.
   // When selected, run the getNews function using the
@@ -47,12 +48,9 @@ $(document).ready(function(){
   //  The ajax call returns a JSON Object containing the analysis data.
   function analyzeURL(url, chart) {
     localStorage.clear();
-    //let unAnalyzedText = text;
-    //"https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=$API_KEY"
     var urlBase = "https://gateway-a.watsonplatform.net/calls/url/URLGetEmotion?";
     var apiKey = "e98c199b53f78a115c910b132833e89d9cd9ecd5";
     $url = url;
-    //urlBase = urlBase+"apikey="+apiKey+"&text="+encodeURIComponent(unAnalyzedText)+"&outputMode=json";
     urlBase = urlBase+"apikey="+apiKey+"&url="+$url+"&outputMode=json";
     $.ajax({
       url: urlBase,
