@@ -1,14 +1,13 @@
 $(document).ready(function(){
+  $('select').material_select();
 
-  // Listen for the user to click on the data submit button.
-  // When clicked, run the analyzeIt function using the text
-  // in the text entry field.
-  $("#btn1").click(function(){
+  // Listen for the user to select a news source.
+  // When selected, run the getNews function using the
+  // option value as source to pass to the function.
+  $("#select1").change(function(){
     event.preventDefault();
-    var sendText = $("#exemplar").val();
-    $(".chart").html('');
-    analyzeIt(sendText);  //Function that will hit Watson API.
-    //$("#exemplar").val("");  //To clear the textarea.
+    var source=$("select option:selected").val();
+    getNews(source);  //Function that get the news article info.
   })
 
   //  The graphIt function utilizes the D3 framework to add a bar graph
@@ -68,3 +67,24 @@ $(document).ready(function(){
     })
   }
 });
+
+  //  The getNews function is triggered when a news source is selected.
+  //  It hits the newsapi and receive an object of top news articles (max 10);
+  function getNews(source) {
+    localStorage.clear();
+    var urlBase="https://newsapi.org/v1/articles?source="
+    urlBase += source + "&sortBy=top&apiKey=b9e8f0369e2343549280be54e86a74f9";
+
+    $.get(urlBase, function(artObj) {
+        localStorage.setItem("articles", artObj);
+        addArticles(artObj);
+    }).fail(function() {
+        displayError();
+    });
+  }
+
+  function addArticles(obj) {
+  }
+
+  function displayError() {
+  }
