@@ -1,21 +1,22 @@
-$(document).ready(function(){
-  $('select').material_select();
-   $(".button-collapse").sideNav();
+$(document).ready(function () {
+  "use strict";
+  $("select").material_select();
+  $(".button-collapse").sideNav();
 
   // Listen for the user to select a news source.
   // When selected, run the getNews function using the
   // option value as source to pass to the function.
-  $("#select1").change(function(){
+  $("#select1").change(function () {
     event.preventDefault();
-    var source=$("select option:selected").val();
+    var source = $("select option:selected").val();
     getNews(source);  //Function that get the news article info.
-  })
+  });
 
   //  The graphIt function utilizes the D3 framework to add a bar graph
   //  to the page using DOM manipulation and pulling bar graph values from
   //  local storage values created after the API call.
   function graphIt(chartNum) {
-    var chartClass ="."+chartNum;
+    var chartClass = "." + chartNum;
     var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
     var colors = ["rgba(255, 0, 0, .8)", "green", "purple", "yellow", "blue"];
     var data = [];
@@ -50,14 +51,14 @@ $(document).ready(function(){
     localStorage.clear();
     var urlBase = "https://gateway-a.watsonplatform.net/calls/url/URLGetEmotion?";
     var apiKey = "e98c199b53f78a115c910b132833e89d9cd9ecd5";
-    $url = url;
+    var $url = url;
     urlBase = urlBase+"apikey="+apiKey+"&url="+$url+"&outputMode=json";
     $.ajax({
       url: urlBase,
       type: 'POST',
-      success: function(data){
+      success: function (data) {
         var emoObj = data.docEmotions;
-        for (emotion in emoObj) {
+        for (var emotion in emoObj) {
           localStorage.setItem(emotion, emoObj[emotion]);
         }
         graphIt(chart);
@@ -85,19 +86,20 @@ $(document).ready(function(){
   // appear when clicked and show the Watson API emotion analysis results on
   // a bar graph.
   function addArticles(obj) {
-    $("#articlesList").html('');
+    $("#articlesList").html("");  //Clears the current articles on the page.
     var rawArticles = obj;
 
-    // Start of dynamic creation and addition of news stories with modals on page;
+    // Start of dynamic creation and addition of news stories with materialize
+    // cards and modals on the page.
     for (var i = 0; i < rawArticles.articles.length; i++) {
       var element = rawArticles.articles[i];
-      //  Ternary operators to eliminat null values
+      //  Ternary operators to eliminate null values.
       var $author = element.author ? element.author : "Not available.";
       var $title = element.title ? element.title : "Not available.";
       var $desc = element.description ? element.description.substring(0, 300) : "Not avialble";
       var $url = element.url ? element.url : "#";
       var $urlImg = element.urlToImage ? element.urlToImage : "assets/images/thumbna.png";
-      var $pub=element.publishedAt;
+      var $pub = element.publishedAt;
 
       var $div1 = $("<div>").addClass("col s10 offset-s1");
       var $div2 = $("<div>").addClass("card small horizontal");
@@ -106,21 +108,21 @@ $(document).ready(function(){
       var $div5 = $("<div>").addClass("card-content");
       var $div6 = $("<div>").addClass("card-action");
       var $img = $("<img>").attr("src", $urlImg);
-      $img.css('width', '22em');
-      $img.css('overflow','hidden');
+      $img.css("width", "22em");
+      $img.css("overflow","hidden");
       var $h51 = $("<h5>").text($title);
       var $h61 = $("<h6>").text("Author: "+$author);
       var $h62 = $("<h6>").text("Published: "+$pub);
       var $br = $("<br>");
-      var $p=$("<p>").text($desc);
-      var $a1 = $('<a>').attr("href", $url);
+      var $p = $("<p>").text($desc);
+      var $a1 = $("<a>").attr("href", $url);
       var $a1 = $a1.attr("target", "_blank");
       $a1.append("Link to Story");
       $div5.append($h51,$h61,$h62,$p);
       $div5.addClass("card-content");
       $div6.append($a1);
 
-      // Dynamic Modal Creation and assembly
+      // Dynamic Modal Creation and assembly.
       var $pM = $("<p>").addClass("chart"+(i+10));
       var $aM1 = $("<a>").attr("href", "#modal"+(i+10)).addClass("modal-trigger waves-effect waves-light btn").append("Emotion Analysis").attr("id", "b"+(i+10)).attr("data-url", $url).attr("data-chart", "chart"+(i+10));
       var $aM2 = $("<a>").attr("href", "#!").addClass("modal-action modal-close waves-effect waves-green btn-flat").append("Close");
@@ -132,7 +134,7 @@ $(document).ready(function(){
       $divM2.append($h4M, $pM);
       $divM1.append($divM2, $divM3);
 
-      // Final assembly and append of news items to the page.
+      // Final card assembly and append of news items to the page.
       $div6.append($aM1,$divM1);
       $div4.append($div5,$div6);
       $div3.append($img);
@@ -140,14 +142,14 @@ $(document).ready(function(){
       $div1.append($div2);
       $("#articlesList").append($div1);
     }
-    $('.modal').modal();  //Initialize Materialize modal function.
+    $(".modal").modal();  //Initialize Materialize modal function.
 
     // Set a button listener on the newly created modals & buttons
     // now on the page.  Listen for the modal button click.
     $(".modal-trigger").click(function(event){
       event.preventDefault();
-      var sendURL = $(event.target).attr('data-url');
-      var sendChart = $(event.target).attr('data-chart');
+      var sendURL = $(event.target).attr("data-url");
+      var sendChart = $(event.target).attr("data-chart");
       analyzeURL(sendURL, sendChart); // Function that will hit Watson API.
     })
   }
@@ -155,11 +157,11 @@ $(document).ready(function(){
   // This function displays a custom error message if the getNews api call
   // fails.
   function displayError() {
-    $("#articlesList").html('');
-    let errorMsg1 = "We're sorry, but the site you've requested is currently unavailable."
+    $("#articlesList").html("");
+    let errorMsg1 = "We're sorry, but the news source you've requested is currently unavailable."
     let errorMsg2 = "Please try again later or select another news source."
-    $p1=$('<h5>').text(errorMsg1).addClass("center");
-    $p2=$('<h5>').text(errorMsg2).addClass("center");
+    $p1 = $("<h5>").text(errorMsg1).addClass("center");
+    $p2 = $("<h5>").text(errorMsg2).addClass("center");
     $("#articlesList").append($p1,$p2);
   }
 
