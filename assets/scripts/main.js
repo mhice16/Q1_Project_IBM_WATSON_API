@@ -13,7 +13,7 @@ $(document).ready(function(){
   //  The graphIt function utilizes the D3 framework to add a bar graph
   //  to the page using DOM manipulation and pulling bar graph values from
   //  local storage values created after the API call.
-  function graphIt() {
+  function graphIt(chartNum) {
     var chartClass ="."+chartNum;
     var emotions = ["anger", "disgust", "fear", "joy", "sadness"];
     var colors = ["rgba(255, 0, 0, .8)", "green", "purple", "yellow", "blue"];
