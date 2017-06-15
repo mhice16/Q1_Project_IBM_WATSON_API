@@ -1,9 +1,9 @@
 # Q1_Project_IBM_WATSON_API
 Galvanize g41 Q1 Project Utilizing the IBM Watson API
 
-## View it live at: https://news-api-and-ibm-watson.herokuapp.com
+### View it live at: https://news-api-and-ibm-watson.herokuapp.com
 
-##PROJECT DESCRIPTION
+## PROJECT DESCRIPTION
 This project provides the user with an english language text analysis engine powered by the IBM Watson API. When visiting the site, the user will be able to paste their text (from text messages, emails, other digital sources) and submit it for analysis.  They will immediately receive an on-screen analysis of the text in terms of a ranked list of the primary emotions expressed and the sentiment expressed within the text (and possibly other analysis results TBD.)
 
 ### Problem Statement:
